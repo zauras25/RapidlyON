@@ -1,0 +1,53 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum ProjectStatus {
+  NEW
+  IN_PROGRESS
+  REVIEW
+  COMPLETED
+}
+
+model Project {
+  id           String        @id @default(cuid())
+  name         String
+  email        String
+  company      String?
+  projectType  String
+  projectStage String
+  message      String
+  status       ProjectStatus @default(NEW)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  completedAt DateTime?
+
+  rating ClientRating?
+
+  @@index([email])
+  @@index([status])
+}
+
+model ClientRating {
+  id                 String   @id @default(cuid())
+  projectId          String   @unique
+  overallRating      Int
+  communication      Int?
+  understanding      Int?
+  designQuality      Int?
+  process            Int?
+  outcome            Int?
+  feedback           String?
+  testimonial        String?
+  testimonialConsent Boolean  @default(false)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+}

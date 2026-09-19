@@ -1,0 +1,31 @@
+.section {
+  padding-block: 96px;
+}
+
+.section-sm {
+  padding-block: 64px;
+}
+
+.section-lg {
+  padding-block: 128px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+.border-subtle {
+  border-color: var(--border-subtle);
+}
+
+.border-default {
+  border-color: var(--border);
+}
+
+.border-strong {
+  border-color: var(--border-strong);
+}
